@@ -1,7 +1,3 @@
-# TechVidvan hand Gesture Recognizer
-
-# import necessary packages
-
 import cv2
 import numpy as np
 import mediapipe as mp
@@ -30,8 +26,6 @@ WINDOW_WIDTH = 1600
 WINDOW_HEIGHT = 1000
 map_to_nums={'okay':'1', 'peace':'2', 'fist':'3', 'rock':'4', 'call me':'5', 'smile':'6', 'stop':'8', 'live long':'8','thumbs up':'9', 'thumbs down':'10', '':''}
 
-
-
 def get_instruction_frame():
     image = Image.open('Instructions.png')
     image2 = Image.open('Act1.png')
@@ -41,7 +35,6 @@ def get_instruction_frame():
     bio2 = io.BytesIO()
     image.save(bio, format="PNG")
     image2.save(bio2, format="PNG")
-
 
     layout = [
         [sg.Image(data=bio.getvalue())],
@@ -226,13 +219,11 @@ def predict_gesture(frame):
 
 
 def main():
-    # sg.theme("LightGreen")
     sg.theme('LightBlue')
 
     video_recording_layout = [
         [sg.Image(filename="", key="-IMAGE-")]
     ]
-
 
     in_Book_imaging_room = False
     in_x_confirmation = False
@@ -241,9 +232,7 @@ def main():
     in_first_frame = False
 
     window = get_main_interface(video_recording_layout)
-    # window = get_option_interface(video_recording_layout)
-    # window = get_confirmation_interface(video_recording_layout)
-
+   
     # Initialize the webcam
     cap = cv2.VideoCapture(0)
 
@@ -296,14 +285,13 @@ def main():
             in_mri_confirmation = False
             in_first_frame = True
 
-
         if cv2.waitKey(1) == ord('q'):
             break
 
         imgbytes = cv2.imencode(".png", frame)[1].tobytes()
         window["-IMAGE-"].update(data=imgbytes)
     
-    # release the webcam and destroy all active windows
+    # release the webcam 
     cap.release()
     cv2.destroyAllWindows()
     window.close()
